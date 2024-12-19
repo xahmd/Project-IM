@@ -18,7 +18,7 @@
    @yield('content')
 
     <footer>
-    Copyright 2020 SoftAlliance
+    JAMOS AHMAD - CB21129
     </footer>
 
     </body>

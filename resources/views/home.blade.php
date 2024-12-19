@@ -7,26 +7,97 @@
 
 
 @if(Auth::user()->role == 'Admin')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard for the Admin</div>
+@section('content')
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mb-4 text-center">Admin Dashboard</h1>
+        </div>
+    </div>
 
+    <!-- Analytics Summary -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-center">
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-                    Welcome Admin to your portal!<br />
-                  
+                    <h5 class="card-title">Total Admins</h5>
+                    <p class="card-text display-4">{{ $totalAdmins }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Staff</h5>
+                    <p class="card-text display-4">{{ $totalStaff }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Total Leaves</h5>
+                    <p class="card-text display-4">{{ $totalLeaves }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Leaves by Status</div>
+                <div class="card-body">
+                    <canvas id="leavesStatusChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Leave Applications Over Time</div>
+                <div class="card-body">
+                    <canvas id="leavesOverTimeChart"></canvas>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Include Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const leavesStatusChart = new Chart(document.getElementById('leavesStatusChart').getContext('2d'), {
+        type: 'pie',
+        data: {
+            labels: ['Approved', 'Pending', 'Rejected'],
+            datasets: [{
+                data: [{{ $approvedLeaves }}, {{ $pendingLeaves }}, {{ $rejectedLeaves }}],
+                backgroundColor: ['#28a745', '#ffc107', '#dc3545'],
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    const leavesOverTimeChart = new Chart(document.getElementById('leavesOverTimeChart').getContext('2d'), {
+        type: 'line',
+        data: {
+            labels: {!! json_encode($monthlyLeaveLabels) !!},
+            datasets: [{
+                label: 'Leave Applications',
+                data: {!! json_encode($monthlyLeaveData) !!},
+                borderColor: '#007bff',
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+</script>
+@endsection
 @elseif(Auth::user()->role == 'LineManager')
 <div class="container">
     <div class="row justify-content-center">

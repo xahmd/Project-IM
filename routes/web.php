@@ -1,6 +1,6 @@
 <?php
 use App\Mail\NewLeaveNotification;
-
+use App\Http\Controllers\AdminDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,5 +53,6 @@ Route::get('/staff/adminLeaveHistory', 'LeaveController@adminLeaveHistory');
 //linemanager
 Route::get('/staff/managerLeaveHistory', 'LeaveController@managerLeaveHistory');
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
