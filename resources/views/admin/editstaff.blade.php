@@ -1,100 +1,131 @@
 @extends('layouts.app')
 
 @section('content')
- <div class="container"> 
- <form action="/editstaffs/{{$user->id}}" method="POST">
-        @csrf
-        {{-- @method('PUT') --}}
-          <div class="form-group col-md-4">
-            <label for="inputFname">First Name: </label>
-            <input type="text" name="firstName" value="{{ $user->firstName }}" class="form-control" id="inputFname" placeholder="">
-          </div> <br />
-          <div class="form-group col-md-4">
-            <label for="inputLname">Last Name:</label>
-            <input type="text" name="lastName" value="{{ $user->lastName }}" class="form-control" id="inputLname" placeholder="">
-          </div>
-            <div class="form-group col-md-4">
-              <label for="inputPassword4">Password:</label>
-              <input type="password" name="password" value="{{ $user->password }}" class="form-control" id="inputPassword4" placeholder="">
-            </div>
-       
-        <div class="form-group col-md-2">
-          <label for="inputStaffID">Staff ID</label>
-          <input type="text" name="staffID" value="{{ $user->staffID }}" class="form-control" id="inputStaffID" placeholder=" ">
-        </div>
-        <div class="form-group col-md-2">
-          <label for="inputRole">Role</label>
-          <select id="inputRole" name="role" class="form-control">
-            <option selected>Select...</option>
-            <option value="LineManager">Line Manager</option>
-            <option value="RegularStaff">Regular Staff</option>
-          </select>
-        </div>
-        <div class="form-group col-md-2">
-          <label for="inputRole">Line Manager</label>
-          <select id="inputRole" name="managerID" class="form-control">
-            <option></option>
-            @foreach ($managers as $manager)
-          <option value="{{$manager->staffID}}">{{$manager->firstName}} {{$manager->lastName}}</option>
-            @endforeach
-          
-          </select> 
-        
-        </div>
-     
-       
-      
-        <div class="form-group col-md-4">
-        <button type="submit" class="btn btn-primary">Update</button>
-        </div>
-      </form>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h3 class="text-center mb-4">Edit Staff Details</h3>
 
-                   
+                    <form action="/editstaffs/{{$user->id}}" method="POST">
+                        @csrf
+                        {{-- @method('PUT') --}}
+
+                        <!-- First Name Field -->
+                        <div class="form-group">
+                            <label for="inputFname">First Name</label>
+                            <input type="text" name="firstName" value="{{ $user->firstName }}" class="form-control" id="inputFname" placeholder="Enter First Name">
+                        </div>
+
+                        <!-- Last Name Field -->
+                        <div class="form-group">
+                            <label for="inputLname">Last Name</label>
+                            <input type="text" name="lastName" value="{{ $user->lastName }}" class="form-control" id="inputLname" placeholder="Enter Last Name">
+                        </div>
+
+                        <!-- Password Field -->
+                        <div class="form-group">
+                            <label for="inputPassword4">Password</label>
+                            <input type="password" name="password" value="{{ $user->password }}" class="form-control" id="inputPassword4" placeholder="Enter Password">
+                        </div>
+
+                        <!-- Staff ID Field -->
+                        <div class="form-group">
+                            <label for="inputStaffID">Staff ID</label>
+                            <input type="text" name="staffID" value="{{ $user->staffID }}" class="form-control" id="inputStaffID" placeholder="Enter Staff ID">
+                        </div>
+
+                        <!-- Role Field -->
+                        <div class="form-group">
+                            <label for="inputRole">Role</label>
+                            <select id="inputRole" name="role" class="form-control">
+                                <option selected>Select Role...</option>
+                                <option value="LineManager" {{ $user->role == 'LineManager' ? 'selected' : '' }}>Line Manager</option>
+                                <option value="RegularStaff" {{ $user->role == 'RegularStaff' ? 'selected' : '' }}>Regular Staff</option>
+                            </select>
+                        </div>
+
+                        <!-- Line Manager Field -->
+                        <div class="form-group">
+                            <label for="inputManagerID">Line Manager</label>
+                            <select id="inputManagerID" name="managerID" class="form-control">
+                                <option value="">Select Line Manager</option>
+                                @foreach ($managers as $manager)
+                                <option value="{{ $manager->staffID }}" {{ $user->managerID == $manager->staffID ? 'selected' : '' }}>
+                                    {{ $manager->firstName }} {{ $manager->lastName }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Update Button -->
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Update</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</div> 
-
-
-{{-- 
-<h1>Add admin</h1>
-<form action="" method="post" enctype="multipart/form-data">
-<form action="" method="post">
-<div class="form-group">
-<label for="name">Name</label>
-<input type="text" class="form-control" name="admin_name">	
-</div>
-  <div class="form-group">
-    <label for="name">Email</label>
-          <input type="text" class="form-control" name="email">	
-</div>
-<div class="form-group">
-    <label for="name">Password</label>
-          <input type="text" class="form-control" name="password">	
 </div>
 
-<div class="form-group">
-    <label for="name">Confirm Password</label>
-          <input type="text" class="form-control" name="pword">	
-</div>
+@endsection
 
-<div class="form-group">
-<label for="image">Upload Image</label>
-<input type="file" name="pic" class="form-control">
+@section('styles')
+<style>
+    /* Card Styling */
+    .card {
+        border-radius: 10px;
+    }
 
-</div>
+    .card-body {
+        padding: 2rem;
+    }
 
+    /* Input and Select Field Styling */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
 
-<div class="form-group">
-<button class="btn btn-primary" type="submit" name="add_admin">Add Admin</button>
+    .form-control {
+        border-radius: 5px;
+        box-shadow: none;
+        padding: 0.75rem;
+    }
 
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 0.25rem rgba(38, 143, 255, 0.25);
+    }
 
-</div>
-</div>
+    /* Button Styling */
+    .btn {
+        border-radius: 5px;
+        padding: 10px 30px;
+        font-size: 16px;
+    }
 
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
 
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
 
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .card-body {
+            padding: 1rem;
+        }
 
-</div> --}}
+        .btn {
+            font-size: 14px;
+            padding: 8px 20px;
+        }
+    }
+</style>
 @endsection

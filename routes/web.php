@@ -54,5 +54,5 @@ Route::get('/staff/adminLeaveHistory', 'LeaveController@adminLeaveHistory');
 Route::get('/staff/managerLeaveHistory', 'LeaveController@managerLeaveHistory');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/home', [AdminDashboardController::class, 'index'])->name('home');
 

@@ -5,9 +5,9 @@
 
 
 
-
 @if(Auth::user()->role == 'Admin')
 @section('content')
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
@@ -20,16 +20,8 @@
         <div class="col-md-4">
             <div class="card text-center">
                 <div class="card-body">
-                    <h5 class="card-title">Total Admins</h5>
-                    <p class="card-text display-4">{{ $totalAdmins }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Total Staff</h5>
-                    <p class="card-text display-4">{{ $totalStaff }}</p>
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text display-4">{{ $totalUsers }}</p>  <!-- Ensure this variable is passed from the controller -->
                 </div>
             </div>
         </div>
@@ -62,11 +54,13 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- Include Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // Leaves by Status (Pie Chart)
     const leavesStatusChart = new Chart(document.getElementById('leavesStatusChart').getContext('2d'), {
         type: 'pie',
         data: {
@@ -81,6 +75,7 @@
         }
     });
 
+    // Leave Applications Over Time (Line Chart)
     const leavesOverTimeChart = new Chart(document.getElementById('leavesOverTimeChart').getContext('2d'), {
         type: 'line',
         data: {
@@ -97,7 +92,9 @@
         }
     });
 </script>
+
 @endsection
+
 @elseif(Auth::user()->role == 'LineManager')
 <div class="container">
     <div class="row justify-content-center">
