@@ -126,36 +126,68 @@
 
 @else
 @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
+    <div class="alert alert-success">
+        <p>{{ $message }}</p>
+    </div>
+@endif
 
-<div class="container">
+<div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard for Regular staffs</div>
-
+        <div class="col-md-10">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4>Dashboard for Regular Staff</h4>
+                </div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                        @endif
-
-                    Welcome {{Auth::user()->firstName }}  {{Auth::user()->lastName}}<br />
+                    <h5 class="mb-4">Welcome, {{ Auth::user()->firstName }} {{ Auth::user()->lastName }}!</h5>
                     
+                    <div class="row">
+                        <!-- Leave Balance -->
+                        <div class="col-md-6">
+                            <div class="card bg-light mb-3">
+                                <div class="card-header"><strong>Leave Balance</strong></div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        You currently have <strong>{{ Auth::user()->leavebalance }}</strong> days of leave remaining.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Notifications -->
+                        <div class="col-md-6">
+                            <div class="card bg-light mb-3">
+                                <div class="card-header"><strong>Notifications</strong></div>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        No new notifications at the moment.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row mt-4">
+                        <!-- Apply for Leave -->
+                        <div class="col-md-6 text-center">
+                            <a href="{{ url('/createleave') }}" class="btn btn-success btn-lg btn-block shadow">
+                                <i class="fas fa-paper-plane"></i> Apply for Leave
+                            </a>
+                        </div>
 
+                        <!-- Leave History -->
+                        <div class="col-md-6 text-center">
+                            <a href="{{ url('/staff/approval') }}" class="btn btn-info btn-lg btn-block shadow">
+                                <i class="fas fa-history"></i> Leave History
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endif
-
-
 
 @endsection

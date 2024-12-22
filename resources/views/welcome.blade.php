@@ -33,7 +33,7 @@
 
         <div class="actions">
             @auth
-                <a href="{{ url('/dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+                <a href="{{ url('/home') }}" class="btn btn-primary">Go to Dashboard</a>
             @else
                 <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
                 <a href="{{ route('login') }}" class="btn btn-primary">Login</a>

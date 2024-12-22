@@ -3,20 +3,17 @@
 @section('content')
 
 @if ($message = Session::get('success'))
-        <div class="alert alert-success col-md-6 offset-md-3">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-
-    
-    
-@if ($message = Session::get('danger'))
-<div class="alert alert-danger col-md-6 offset-md-3">
-    <p>{{ $message }}</p>
-</div>
+    <div class="alert alert-success col-md-6 offset-md-3 text-center">
+        <p>{{ $message }}</p>
+    </div>
 @endif
 
-    
+@if ($message = Session::get('danger'))
+    <div class="alert alert-danger col-md-6 offset-md-3 text-center">
+        <p>{{ $message }}</p>
+    </div>
+@endif
+
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
@@ -118,8 +115,8 @@
     </div>
 </div>
 
+<div class="text-center">
+    {{ $approvals->links() }}
+</div>
 
-  
-{{ $approvals->links() }}
-
-  @endsection
+@endsection
