@@ -49555,8 +49555,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\abass\Leave-management-system\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\abass\Leave-management-system\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\GAMIMNG\Desktop\Sem 6\Integrated Application\Proj\Projectt\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\GAMIMNG\Desktop\Sem 6\Integrated Application\Proj\Projectt\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
